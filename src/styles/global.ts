@@ -27,6 +27,7 @@ export const GlobalStyle = createGlobalStyle`
 
     h1, h2, h3, h4, h5, h6 {
         font-family: 'Baloo 2', sans-serif;
+        color: ${(props) => props.theme["base-title"]};
     }
 
     :focus {
