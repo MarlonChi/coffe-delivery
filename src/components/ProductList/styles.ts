@@ -16,4 +16,16 @@ export const ProductList = styled.div`
   grid-template-columns: repeat(4, 1fr);
   column-gap: 3.2rem;
   row-gap: 4rem;
+
+  @media (max-width: 1250px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 870px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 585px) {
+    grid-template-columns: 1fr;
+  }
 `;
