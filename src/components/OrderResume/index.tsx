@@ -37,7 +37,7 @@ export const OrderResume = () => {
           </strong>
         </S.OrderRow>
 
-        <NavLink to="/">
+        <NavLink to="/order-resume">
           <S.ConfirmButton>Confirmar Pedido</S.ConfirmButton>
         </NavLink>
       </S.OrderResume>
