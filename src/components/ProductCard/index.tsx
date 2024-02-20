@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Minus, Plus, ShoppingCartSimple } from "phosphor-react";
+
+import { CartContext } from "../../contexts/CartContext";
 
 import * as S from "./styles";
 
@@ -18,6 +20,8 @@ interface ProductCardProps {
 
 export const ProductCard = ({ product }: ProductCardProps) => {
   const [quantityInCart, setQuantityInCart] = useState(0);
+
+  const { addProductToCart } = useContext(CartContext);
 
   const handleIncrement = () => {
     setQuantityInCart(quantityInCart + 1);
@@ -58,7 +62,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             <Plus size={14} weight="bold" />
           </S.Increase>
         </S.QuantityInputContainer>
-        <S.CartButton>
+        <S.CartButton onClick={() => addProductToCart(product)}>
           <ShoppingCartSimple size={22} weight="fill" />
         </S.CartButton>
       </S.ActionsContainer>
