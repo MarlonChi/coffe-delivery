@@ -1,22 +1,35 @@
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 
 import { OrderItem } from "../OrderItem";
+import { CartContext } from "../../contexts/CartContext";
 
 import * as S from "./styles";
 
 export const OrderResume = () => {
-  const valueTemp = 29.7;
+  const { products } = useContext(CartContext);
+
+  const totalItems = products.reduce((acc, item) => {
+    return acc + item.price * (item.quantity || 1);
+  }, 0);
+
+  const totalCart = totalItems + 8;
+
   return (
     <S.OrderResumeContainer>
       <h3>Cafés selecionados</h3>
       <S.OrderResume>
-        <OrderItem />
-        <S.Divider />
+        {products.map((product) => (
+          <>
+            <OrderItem product={product} />
+            <S.Divider />
+          </>
+        ))}
 
         <S.OrderRow>
           Total de itens
           <span>
-            {valueTemp.toLocaleString("pt-BR", {
+            {totalItems.toLocaleString("pt-BR", {
               style: "currency",
               currency: "BRL",
             })}
@@ -29,7 +42,7 @@ export const OrderResume = () => {
           <strong>Total</strong>
           <strong>
             <span>
-              {valueTemp.toLocaleString("pt-BR", {
+              {totalCart.toLocaleString("pt-BR", {
                 style: "currency",
                 currency: "BRL",
               })}

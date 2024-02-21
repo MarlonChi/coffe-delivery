@@ -32,6 +32,16 @@ export const cartReducer = (state: CartState, action: any) => {
       });
     }
 
+    case ActionTypes.REMOVE_PRODUCT_FROM_CART:
+      return produce(state, (draft) => {
+        const productToRemove = draft.products.findIndex(
+          (product) => product.id === action.payload.productId
+        );
+        if (productToRemove !== -1) {
+          draft.products.splice(productToRemove, 1);
+        }
+      });
+
     case ActionTypes.INCREMENT_PRODUCT_QUANTITY:
       return produce(state, (draft) => {
         const newProduct = action.payload.product;

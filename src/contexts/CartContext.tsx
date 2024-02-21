@@ -5,11 +5,13 @@ import {
   addProductToCartAction,
   decrementProductQuantityAction,
   incrementProductQuantityAction,
+  removeProductFromCartAction,
 } from "../reducers/cart/actions";
 
 interface CartContextType {
   products: Product[];
   addProductToCart: (product: Product) => void;
+  removeProductFromCart: (productId: number) => void;
   incrementProductQuantity: (product: Product) => void;
   decrementProductQuantity: (productId: number) => void;
 }
@@ -31,6 +33,10 @@ export const CartContextProvider = ({ children }: CartContextProviderType) => {
     dispatch(addProductToCartAction(product));
   };
 
+  const removeProductFromCart = (productId: number) => {
+    dispatch(removeProductFromCartAction(productId));
+  };
+
   const incrementProductQuantity = (product: Product) => {
     dispatch(incrementProductQuantityAction(product));
   };
@@ -44,6 +50,7 @@ export const CartContextProvider = ({ children }: CartContextProviderType) => {
       value={{
         products,
         addProductToCart,
+        removeProductFromCart,
         incrementProductQuantity,
         decrementProductQuantity,
       }}

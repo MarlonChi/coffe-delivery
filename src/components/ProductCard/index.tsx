@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { NavLink } from "react-router-dom";
 import { Minus, Plus, ShoppingCartSimple } from "phosphor-react";
 
 import { CartContext } from "../../contexts/CartContext";
@@ -73,9 +74,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             <Plus size={14} weight="bold" />
           </S.Increase>
         </S.QuantityInputContainer>
-        <S.CartButton onClick={() => handleAddToCart(product)}>
-          <ShoppingCartSimple size={22} weight="fill" />
-        </S.CartButton>
+        <NavLink to="/checkout">
+          <S.CartButton onClick={() => handleAddToCart(product)}>
+            <ShoppingCartSimple size={22} weight="fill" />
+          </S.CartButton>
+        </NavLink>
       </S.ActionsContainer>
     </S.ProductCardContainer>
   );

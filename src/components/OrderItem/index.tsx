@@ -1,40 +1,49 @@
+import { useContext } from "react";
 import { Minus, Plus, Trash } from "phosphor-react";
 
-import { data } from "../../data/data";
+import { Product } from "../../reducers/cart/reducer";
+import { CartContext } from "../../contexts/CartContext";
 
 import * as S from "./styles";
 
-export const OrderItem = () => {
-  const handleIncrement = () => {
-    console.log("increment");
+interface OrderItemProps {
+  product: Product;
+}
+
+export const OrderItem = ({ product }: OrderItemProps) => {
+  const { addProductToCart, decrementProductQuantity, removeProductFromCart } =
+    useContext(CartContext);
+
+  const handleIncrement = (product: Product) => {
+    addProductToCart(product);
   };
 
-  const handleDecrement = () => {
-    console.log("decrement");
+  const handleDecrement = (productId: number) => {
+    decrementProductQuantity(productId);
   };
 
-  const handleRemoveItem = () => {
-    console.log("remove");
+  const handleRemoveItem = (productId: number) => {
+    removeProductFromCart(productId);
   };
 
-  const productPrice = data[0].price * 1;
+  const productPrice = product.price * (product.quantity || 1);
 
   return (
     <S.OrderItemContainer>
-      <img src={data[0].image} alt={data[0].name} />
+      <img src={product.image} alt={product.name} />
       <S.Actions>
-        {data[0].name}
+        {product.name}
         <S.Inputs>
           <S.QuantityInputContainer>
-            <S.Decrease onClick={handleDecrement}>
+            <S.Decrease onClick={() => handleDecrement(product.id)}>
               <Minus size={14} weight="bold" />
             </S.Decrease>
-            <S.Quantity type="text" value="1" readOnly />
-            <S.Increase onClick={handleIncrement}>
+            <S.Quantity type="text" value={product.quantity} readOnly />
+            <S.Increase onClick={() => handleIncrement(product)}>
               <Plus size={14} weight="bold" />
             </S.Increase>
           </S.QuantityInputContainer>
-          <S.RemoveButton onClick={handleRemoveItem}>
+          <S.RemoveButton onClick={() => handleRemoveItem(product.id)}>
             <Trash size={16} />
             Remover
           </S.RemoveButton>
