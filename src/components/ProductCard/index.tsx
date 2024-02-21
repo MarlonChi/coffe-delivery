@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Minus, Plus, ShoppingCartSimple } from "phosphor-react";
 
 import { CartContext } from "../../contexts/CartContext";
@@ -19,19 +19,27 @@ interface ProductCardProps {
 }
 
 export const ProductCard = ({ product }: ProductCardProps) => {
-  const [quantityInCart, setQuantityInCart] = useState(0);
+  const {
+    products,
+    addProductToCart,
+    incrementProductQuantity,
+    decrementProductQuantity,
+  } = useContext(CartContext);
 
-  const { addProductToCart } = useContext(CartContext);
-
-  const handleIncrement = () => {
-    setQuantityInCart(quantityInCart + 1);
+  const handleAddToCart = (product: Product) => {
+    addProductToCart(product);
   };
 
-  const handleDecrement = () => {
-    if (quantityInCart > 0) {
-      setQuantityInCart(quantityInCart - 1);
-    }
+  const handleIncrement = (product: Product) => {
+    incrementProductQuantity(product);
   };
+
+  const handleDecrement = (productId: number) => {
+    decrementProductQuantity(productId);
+  };
+
+  const quantityInCart =
+    products.find((item) => item.id === product.id)?.quantity || 0;
 
   return (
     <S.ProductCardContainer>
@@ -54,15 +62,18 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           })}
         </S.Price>
         <S.QuantityInputContainer>
-          <S.Decrease onClick={handleDecrement} disabled={quantityInCart === 0}>
+          <S.Decrease
+            onClick={() => handleDecrement(product.id)}
+            disabled={quantityInCart === 0}
+          >
             <Minus size={14} weight="bold" />
           </S.Decrease>
           <S.Quantity type="text" value={quantityInCart} readOnly />
-          <S.Increase onClick={handleIncrement}>
+          <S.Increase onClick={() => handleIncrement(product)}>
             <Plus size={14} weight="bold" />
           </S.Increase>
         </S.QuantityInputContainer>
-        <S.CartButton onClick={() => addProductToCart(product)}>
+        <S.CartButton onClick={() => handleAddToCart(product)}>
           <ShoppingCartSimple size={22} weight="fill" />
         </S.CartButton>
       </S.ActionsContainer>
