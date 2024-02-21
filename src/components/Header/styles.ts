@@ -43,3 +43,21 @@ export const HeaderContainer = styled.header`
     }
   }
 `;
+
+export const Cart = styled.div`
+  position: relative;
+`;
+
+export const Badge = styled.span`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: ${(props) => props.theme["yellow-dark"]};
+  color: ${(props) => props.theme.white};
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  top: -16px;
+  right: -16px;
+`;
