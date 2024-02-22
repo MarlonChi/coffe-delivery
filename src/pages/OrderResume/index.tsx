@@ -1,10 +1,15 @@
+import { useContext } from "react";
 import { CurrencyDollar, MapPin, Timer } from "phosphor-react";
+
+import { UserContext } from "../../contexts/UserContext";
 
 import DeliveryImage from "../../assets/order-confirm.svg";
 
 import * as S from "./styles";
 
 export const OrderConfirm = () => {
+  const { addressData, paymentMethod } = useContext(UserContext);
+
   return (
     <S.OrderConfirmContainer>
       <S.OrderConfirmInfos>
@@ -16,8 +21,12 @@ export const OrderConfirm = () => {
               <MapPin size={16} weight="fill" />
             </S.Icon>
             <div>
-              Entrega em <b>Rua João Daniel Martinelli, 102</b>
-              , <br /> Farrapos - Porto Alegre, RS
+              Entrega em{" "}
+              <b>
+                Rua {addressData?.address}, {addressData?.number}
+              </b>
+              , <br /> {addressData?.district} - {addressData?.city},{" "}
+              {addressData?.state}
             </div>
           </S.ResumeItem>
           <S.ResumeItem>
@@ -34,7 +43,9 @@ export const OrderConfirm = () => {
             </S.Icon>
             <div>
               Pagamento na entrega <br />
-              <b>Cartão de Crédito</b>
+              {paymentMethod === "credit" && <b>Cartão de Crédito</b>}
+              {paymentMethod === "debit" && <b>Cartão de Débito</b>}
+              {paymentMethod === "money" && <b>Dinheiro</b>}
             </div>
           </S.ResumeItem>
         </S.InfoBox>
