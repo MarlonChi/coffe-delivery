@@ -67,3 +67,30 @@ export const InputRow = styled.div`
   display: flex;
   gap: 1.2rem;
 `;
+
+export const AddAddress = styled.button`
+  margin-top: 2.4rem;
+  border-radius: 6px;
+  border: none;
+  background: ${(props) => props.theme.purple};
+  padding: 12px 8px;
+
+  font-family: "Roboto";
+  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 160%;
+  text-transform: uppercase;
+  color: ${(props) => props.theme.white};
+
+  width: 100%;
+  cursor: pointer;
+
+  &:hover {
+    background: ${(props) => props.theme["purple-dark"]};
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+`;

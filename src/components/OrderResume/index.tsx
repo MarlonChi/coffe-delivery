@@ -3,11 +3,13 @@ import { NavLink } from "react-router-dom";
 
 import { OrderItem } from "../OrderItem";
 import { CartContext } from "../../contexts/CartContext";
+import { UserContext } from "../../contexts/UserContext";
 
 import * as S from "./styles";
 
 export const OrderResume = () => {
   const { products } = useContext(CartContext);
+  const { addressData } = useContext(UserContext);
 
   const totalItems = products.reduce((acc, item) => {
     return acc + item.price * (item.quantity || 1);
@@ -51,7 +53,9 @@ export const OrderResume = () => {
         </S.OrderRow>
 
         <NavLink to="/order-resume">
-          <S.ConfirmButton>Confirmar Pedido</S.ConfirmButton>
+          <S.ConfirmButton disabled={!addressData}>
+            Confirmar Pedido
+          </S.ConfirmButton>
         </NavLink>
       </S.OrderResume>
     </S.OrderResumeContainer>
