@@ -9,7 +9,7 @@ import * as S from "./styles";
 
 export const OrderResume = () => {
   const { products } = useContext(CartContext);
-  const { addressData } = useContext(UserContext);
+  const { addressData, paymentMethod } = useContext(UserContext);
 
   const totalItems = products.reduce((acc, item) => {
     return acc + item.price * (item.quantity || 1);
@@ -53,7 +53,7 @@ export const OrderResume = () => {
         </S.OrderRow>
 
         <NavLink to="/order-resume">
-          <S.ConfirmButton disabled={!addressData}>
+          <S.ConfirmButton disabled={!addressData || !paymentMethod}>
             Confirmar Pedido
           </S.ConfirmButton>
         </NavLink>

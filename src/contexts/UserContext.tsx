@@ -13,6 +13,8 @@ export interface Address {
 interface UserContextType {
   addressData?: Address;
   handleSetAddressData: (data: Address) => void;
+  paymentMethod: string;
+  handleInputPaymentChange: (data: string) => void;
 }
 
 export const UserContext = createContext({} as UserContextType);
@@ -23,15 +25,25 @@ interface UserContextProviderProps {
 
 export function UserContextProvider({ children }: UserContextProviderProps) {
   const [addressData, setAddressData] = useState<Address>();
+  const [paymentMethod, setPaymentMethod] = useState("");
 
   const handleSetAddressData = (data: Address) => {
     setAddressData(data);
   };
 
-  console.log(addressData);
+  const handleInputPaymentChange = (value: string) => {
+    setPaymentMethod(value);
+  };
 
   return (
-    <UserContext.Provider value={{ addressData, handleSetAddressData }}>
+    <UserContext.Provider
+      value={{
+        addressData,
+        handleSetAddressData,
+        paymentMethod,
+        handleInputPaymentChange,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

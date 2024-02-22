@@ -1,14 +1,12 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { Bank, CreditCard, CurrencyDollar, Money } from "phosphor-react";
+
+import { UserContext } from "../../contexts/UserContext";
 
 import * as S from "./styles";
 
 export const CheckoutPayments = () => {
-  const [paymentMethod, setPaymentMethod] = useState("");
-  const handleInputChange = (name: string, value: string) => {
-    console.log(name, value);
-    setPaymentMethod(name);
-  };
+  const { paymentMethod, handleInputPaymentChange } = useContext(UserContext);
 
   return (
     <S.CheckoutPaymentsContainer>
@@ -22,9 +20,7 @@ export const CheckoutPayments = () => {
         </div>
       </S.CardHeader>
       <S.PaymentType
-        onValueChange={(value: string) =>
-          handleInputChange("paymentMethod", value)
-        }
+        onValueChange={(value: string) => handleInputPaymentChange(value)}
         value={paymentMethod}
       >
         <S.PaymentTypeButton value="credit">
